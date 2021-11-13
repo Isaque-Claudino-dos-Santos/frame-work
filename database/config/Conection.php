@@ -1,5 +1,8 @@
 <?php
 
+namespace DataBase\Config;
+use PDO;
+
 class Conection
 {
     public  $pdo;
@@ -59,12 +62,4 @@ class Conection
         $cmd->bindParam("id", $array["id"]);
         $cmd->execute();
     }
-}
-
-require_once("./.ambienteVar.php");
-
-try {
-    $db = new Conection($conectionDB["host"], $conectionDB["dbname"], $conectionDB["user"], $conectionDB["password"]);
-} catch (PDOException $e) {
-    echo "MySql Error " . $e->getMessage();
 }
