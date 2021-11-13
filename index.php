@@ -1,11 +1,12 @@
 <?php
+
+
 require_once("./autoload.php");
 
-require_once("./app/controllers/userController.php");
-require_once("./database/config/Conection.php");
+use App\Controllers\UserController;
+use App\Http\Router;
 
 
-    
 //remove e criar banco de dados
 // $deleteTable = false;
 
@@ -20,6 +21,6 @@ require_once("./database/config/Conection.php");
 
 
 //insere dados
- $db->create("user",userController::register());
+// $db->create("user", userController::register());
 
-require_once(userController::index());
+Router::get("/",UserController::index());
