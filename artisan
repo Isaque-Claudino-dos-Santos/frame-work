@@ -1,0 +1,38 @@
+<?php
+
+require_once("./.ambienteVar.php");
+require_once("./autoload.php");
+
+function istanciarClass($file, $namespace)
+{
+    $file = explode(".", $file)[0];
+    $class = $namespace . "\\" . $file;
+    return new $class;
+}
+
+switch ($argv[1]) {
+    case "serve":
+        exec("php -S " . $var['conectionHost']['host'] . ":" . $var['conectionHost']['port'] . " -t .");
+        break;
+
+    case "migration":
+        $defaulDir = "database/migrations";
+
+        if (is_dir($defaulDir)) {
+            $files = scandir($defaulDir);
+            array_map(function ($file) {
+                if ($file != "." && $file != "..") {
+                    $class = istanciarClass($file, "DataBase\Migrations");
+                    $class->createTable();
+                }
+            }, $files);
+        } else {
+            mkdir($defaulDir);
+        }
+        break;
+
+    case "mysql":
+        exec("sudo service mysql start");
+        exec("mysql -u " . $var['conectionDB']['user'] . " -p");
+        break;
+}
