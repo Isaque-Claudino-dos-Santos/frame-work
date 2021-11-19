@@ -1,17 +1,17 @@
 <?php
 
+class PHPEnv
+{
+    public $conectionDB = [
+        "host" => "",
+        "port" => "",
+        "dbname" => "",
+        "user" => "",
+        "password" => ""
+    ];
 
-$var = [
-    "conectionDB" => [
-        "host"=>"localhost",
-        "post"=>"3306",
-        "dbname"=>"",
-        "user"=>"",
-        "password"=>""
-    ],
-    
-    "conectionHost" => [
-        "host" => "localhost",
+    public $conectionHost = [
+        "host" => "",
         "port" => ""
-    ],
-];
+    ];
+}
