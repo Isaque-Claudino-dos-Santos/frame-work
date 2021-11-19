@@ -1,0 +1,18 @@
+<?php
+
+require_once("./autoload.php");
+use Apis\Comands;
+$comands = new Comands();
+
+switch ($argv[1]) {
+    case "serve":
+        $comands->serve();
+        break;
+
+    case "migrateUp":
+        $comands->migrateUp();
+        break;
+    default:
+        echo "Error";
+    break;
+}
