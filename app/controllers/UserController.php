@@ -4,18 +4,20 @@ namespace App\Controllers;
 
 use App\Controllers\Controller;
 use App\Http\Request;
-use App\Model\User;
+use App\Models\User;
 
 class UserController extends Controller
 {
 
-    public static function index()
+    public function index()
     {
-        return Controller::view("user");
+        return $this->view("user");
     }
 
-    public static function register()
+    public function register()
     {
-        return Request::all(User::$lable);
+        $dados = Request::all(User::$lable);
+        $this->insert($dados);
+        return $dados;
     }
 }
