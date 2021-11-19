@@ -7,8 +7,8 @@ class Request
     public static function all($array)
     {
 
- 
-        foreach ($array as $key => $value) {
+        
+    foreach ($array as $key => $value) {
             $array[$key] = $_POST[$key];
         }
         return $array;
