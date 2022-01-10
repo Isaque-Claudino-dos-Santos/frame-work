@@ -1,16 +1,15 @@
 <?php
 
-require_once("./autoload.php");
-use Apis\Comands;
-$comands = new Comands();
+require_once('./bootstrep.php');
+require_once('./apis/comands.php');
 
 switch ($argv[1]) {
     case "serve":
-        $comands->serve();
+        serve();
         break;
 
     case "migrateUp":
-        $comands->migrateUp();
+        migrateUp();
         break;
     default:
         echo "Error";
