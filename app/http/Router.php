@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http;
-use app\http\Request;
+use App\http\Request;
 class Router 
 {
     public static function get($req,$res)
