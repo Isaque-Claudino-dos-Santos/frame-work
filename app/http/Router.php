@@ -42,19 +42,18 @@ class Router
     {
         if ($this->uri == $url) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     public function execute()
     {
-        $controller = $this->routers[$this->uri];
-
-
-        $func =isset($controller[0]) &&  $controller[0] ?  $controller[0] : 'App\Http\Controllers\HomeController';
-        $action = isset($controller[1]) &&  $controller[1] ?  $controller[1] : 'index';
-        $param = isset($controller[2]) &&  $controller[2] ?  $controller[2] : null;
+        $controller = isset($this->routers[$this->uri]) ? $this->routers[$this->uri] : $this->routers['/'];
+        
+        $func = $controller[0];
+        $action = $controller[1];
+        $param = isset($controller[2]) ? $controller[2] : null;
         (new $func)->$action($param);
     }
 }
