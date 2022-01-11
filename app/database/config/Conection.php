@@ -16,14 +16,9 @@ class Conection
         }
     }
 
-    public function up()
-    {
-        return [];
-    }
-
     public function createTable()
     {
-        $array = $this->up();
+        $array = [];
         $props = "";
         foreach ($array as $key => $value) {
             if ($key != "tableName") {
