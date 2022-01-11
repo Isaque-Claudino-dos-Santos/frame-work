@@ -7,5 +7,11 @@
 </head>
 <body>
     <h1>Welcome to page <i>HOME</i></h1>
+
+    <nav>
+        <ul>
+            <li><a href='#'>Create User</a></li>
+        </ul>
+    </nav>
 </body>
 </html>
