@@ -18,8 +18,8 @@ class Router
         $uri = $this->validateUrl($url);
         $method = $this->validateMethod('GET');
 
-        if ($method && $uri) {
-            $this->execute($url);
+        if (!$method && !$uri) {
+            //Aqui vem um menssagen de erro
         }
     }
 
@@ -47,9 +47,9 @@ class Router
         }
     }
 
-    private function execute($url)
+    public function execute()
     {
-        $controller = $this->routers[$url];
+        $controller = $this->routers[$this->uri];
 
 
         $func =isset($controller[0]) &&  $controller[0] ?  $controller[0] : 'App\Http\Controllers\HomeController';
