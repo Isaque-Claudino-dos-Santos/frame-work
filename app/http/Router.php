@@ -7,10 +7,10 @@ class Router
 
     private $routers = [];
     private $surnames = [];
-    public $current_uri = [];
+    private $current_uri = [];
 
     public function __get($surnames)
-    {   
+    {
         return $this->surnames;
     }
 
@@ -62,7 +62,7 @@ class Router
     private function validateUrl($url)
     {
         if ($this->app_uri == $url) {
-            
+
             return true;
         } else {
             return false;
@@ -72,14 +72,15 @@ class Router
     public function execute()
     {
         $controller = isset($this->routers[$this->app_uri]) ? $this->routers[$this->app_uri] : $this->routers['/'];
-        
+
         $func = $controller[0];
         $action = $controller[1];
         $param = isset($controller[2]) ? $controller[2] : null;
         (new $func)->$action($param);
     }
 
-    public function name($name) {
+    public function name($name)
+    {
         $this->surnames[$name] = $this->current_uri;
     }
 }
