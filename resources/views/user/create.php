@@ -16,6 +16,8 @@
         <input type="number" id="year" name="year" />
         <button>Create User</button>
     </form>
+
+    <button><a href=<?= route('home.index')?>>Back to index</a></button>
 </body>
 
 </html>
