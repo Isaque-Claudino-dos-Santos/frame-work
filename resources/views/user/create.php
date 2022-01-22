@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form method='POST'>
+    <form  action=<?= route('user.store');?> method='POST'>
         <label for="name">Name</label>
         <input type="text" id="name" name="name" />
         <label for="year">Year</label>
