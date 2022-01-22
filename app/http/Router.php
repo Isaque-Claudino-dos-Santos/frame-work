@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+
 class Router
 {
 
@@ -24,34 +25,39 @@ class Router
     {
         $this->routers[$url] = $controller;
         $this->current_uri = $url;
+
         $uri = $this->validateUrl($url);
-        $method = $this->validateMethod('GET');
-        return $this;
-        if (!$method && !$uri) {
-            //Aqui vem um menssagen de erro
+        if ($uri) {
+            $method = $this->validateMethod('GET');
+            if (!$method)
+                dd('ERROR METHOD');
         }
+        return $this;
     }
 
     public function post($url, $controller)
     {
         $this->routers[$url] = $controller;
         $this->current_uri = $url;
+
         $uri = $this->validateUrl($url);
-        $method = $this->validateMethod('POST');
-        return $this;
-        if (!$method && !$uri) {
-            //Aqui vem um menssagen de erro
+        if ($uri) {
+            $method = $this->validateMethod('POST');
+            if (!$method)
+                dd('ERROR METHOD');
         }
+        return $this;
     }
 
     private function validateMethod($method)
     {
-        switch ($method && $this->app_method) {
+        switch ($method) {
             case 'GET':
                 return true;
                 break;
             case 'POST':
-                return true;
+                if ($this->app_method == 'POST')
+                    return true;
                 break;
             default:
                 return false;
@@ -62,7 +68,6 @@ class Router
     private function validateUrl($url)
     {
         if ($this->app_uri == $url) {
-
             return true;
         } else {
             return false;
