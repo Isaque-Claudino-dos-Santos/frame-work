@@ -14,8 +14,7 @@ function istanciarClass($file, $namespace)
 
 function migrateUp()
 {
-    $defaulDir = "database/migrations";
-
+    $defaulDir = "./app/database/migrations";
     if (is_dir($defaulDir)) {
         $files = scandir($defaulDir);
         array_map(function ($file) {
