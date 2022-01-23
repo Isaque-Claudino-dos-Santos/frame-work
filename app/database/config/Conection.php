@@ -1,57 +1,43 @@
 <?php
 
-namespace DataBase\Config;
+namespace App\DataBase\Config;
 
-use PDO;
-use PDOException;
-use PHPEnv;
-
-require_once("./.ambienteVar.php");
-
-class Conection extends PHPEnv
+class Conection
 {
-    public  $pdo;
-    public $table = 'user';
+    private  $pdo;
+    protected $table;
+
 
     public function __construct()
     {
         try {
-
-            $this->pdo = new PDO(
-                'mysql:dbname=' . $this->conectionDB["dbname"] .
-                    ';host=' .  $this->conectionDB["host"] .
-                    ';port=' . $this->conectionDB["port"],
-                $this->conectionDB["user"],
-                $this->conectionDB["password"]
-            );
-        } catch (PDOException $e) {
+            $this->pdo = new \PDO('mysql:dbname=' . DB_DBNAME . ';host=' . DB_HOST . ';port=' . DB_PORT, DB_USER, DB_PASS);
+        } catch (\PDOException $e) {
             echo 'MYSQL error ' . $e->getMessage();
         }
     }
 
-    public function up()
+    public function createTable($props)
     {
-        return [];
-    }
-
-    public function createTable()
-    {
-        $array = $this->up();
-        $props = "";
+        $array = $props;
+        $query = '';
         foreach ($array as $key => $value) {
-            if ($key != "tableName") {
-                $props = "{$props} {$key} {$value}";
+            if (end($array) == $value) {
+                $query .= "{$key} {$value} ";
+            } else {
+                $query .= "{$key} {$value}, ";
             }
         };
-        $cmd = $this->pdo->prepare("create table " . $this->table . " (" . $props . ")");
+
+        $cmd = $this->pdo->prepare("create table " . $this->table . " (" . $query . ")");
         $cmd->execute();
     }
 
 
 
-    public function deleteTable()
+    public function deleteTable($table)
     {
-        $cmd = $this->pdo->prepare("drop table {$this->table}");
+        $cmd = $this->pdo->prepare("drop table {$table};");
         $cmd->execute();
     }
 

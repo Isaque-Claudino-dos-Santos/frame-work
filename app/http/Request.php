@@ -1,16 +1,13 @@
 <?php
 
-namespace App\http;
+namespace App\Http;
 
-class Request
-{
-    public static function all($array)
-    {
+class Request {
+    public static function all() {
+        return $_POST;
+    }
 
-        
-    foreach ($array as $key => $value) {
-            $array[$key] = $_POST[$key];
-        }
-        return $array;
+    public static function name($name) {
+        return $_POST[$name];
     }
 }

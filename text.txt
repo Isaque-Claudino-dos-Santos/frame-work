@@ -1,4 +1,0 @@
-Crie o arquivo .ambienteVar.php e configureo como no exemplo;
-Para começar p projeto use o comando na raiz do projeto (php -S localhost:<port> -t .);
-Para rodar o banco de dados use o mysql-serve;
-Configure as Variaveis de Ambiente .ambineteVar.php tem um arquivo de exemplo .ambienteVar.example.php

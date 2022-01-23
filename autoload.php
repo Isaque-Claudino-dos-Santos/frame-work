@@ -7,6 +7,7 @@ spl_autoload_register(
     function ($classes) {
         $descompact = explode("\\", $classes);
         $path = "";
+        
         foreach($descompact as $files) {
             if(end($descompact) == $files) {
                 $path .= $files;
@@ -16,6 +17,5 @@ spl_autoload_register(
         }
 
         require_once $path.".php";
-       
     }
 );
