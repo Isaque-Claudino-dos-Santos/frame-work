@@ -9,9 +9,12 @@ switch ($argv[1]) {
         break;
 
     case "migrateUp":
-        migrateUp();
+        executeMigration($argv[1]);
+        break;
+    case "migrateDown":
+        executeMigration($argv[1]);
         break;
     default:
         echo "Error";
-    break;
+        break;
 }
