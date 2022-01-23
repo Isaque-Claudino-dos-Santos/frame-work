@@ -2,38 +2,42 @@
 
 namespace App\DataBase\Config;
 
-class Conection 
+class Conection
 {
-    public  $pdo;
-    public $table;
+    private  $pdo;
+    protected $table;
+
 
     public function __construct()
     {
         try {
-            $this->pdo = new \PDO('mysql:dbname='.DB_DBNAME.';host='.DB_HOST.';port='.DB_PORT,DB_USER,DB_PASS);
+            $this->pdo = new \PDO('mysql:dbname=' . DB_DBNAME . ';host=' . DB_HOST . ';port=' . DB_PORT, DB_USER, DB_PASS);
         } catch (\PDOException $e) {
             echo 'MYSQL error ' . $e->getMessage();
         }
     }
 
-    public function createTable()
+    public function createTable($props)
     {
-        $array = [];
-        $props = "";
+        $array = $props;
+        $query = '';
         foreach ($array as $key => $value) {
-            if ($key != "tableName") {
-                $props = "{$props} {$key} {$value}";
+            if (end($array) == $value) {
+                $query .= "{$key} {$value} ";
+            } else {
+                $query .= "{$key} {$value}, ";
             }
         };
-        $cmd = $this->pdo->prepare("create table " . $this->table . " (" . $props . ")");
+
+        $cmd = $this->pdo->prepare("create table " . $this->table . " (" . $query . ")");
         $cmd->execute();
     }
 
 
 
-    public function deleteTable()
+    public function deleteTable($table)
     {
-        $cmd = $this->pdo->prepare("drop table {$this->table}");
+        $cmd = $this->pdo->prepare("drop table {$table};");
         $cmd->execute();
     }
 
