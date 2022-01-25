@@ -1,3 +1,5 @@
+PHP v8.1.1
+
 # Recriando Laravel
 #### Projeto focado em aumentar conhecimento em php e logica de programação e recriar o frame-work laravel do zero :).
 
