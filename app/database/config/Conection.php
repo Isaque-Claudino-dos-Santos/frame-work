@@ -2,6 +2,8 @@
 
 namespace App\DataBase\Config;
 
+use PDOException;
+
 class Conection
 {
     private  $pdo;
@@ -19,11 +21,20 @@ class Conection
 
     public function createTable($props)
     {
-        $array = $props;
+
+        $ary = [];
+        foreach ($props as $prop) {
+            foreach ($prop as $key => $value) {
+                $ary[$key] = $value;
+            }
+        }
+
+
+
         $query = '';
-        foreach ($array as $key => $value) {
-            if (end($array) == $value) {
-                $query .= "{$key} {$value} ";
+        foreach ($ary as $key => $value) {
+            if (end($ary) == $value) {
+                $query .= "{$key} {$value}";
             } else {
                 $query .= "{$key} {$value}, ";
             }
