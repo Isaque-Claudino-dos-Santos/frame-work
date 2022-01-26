@@ -41,7 +41,13 @@ class Conection
         };
 
         $cmd = $this->pdo->prepare("create table " . $this->table . " (" . $query . ")");
-        $cmd->execute();
+
+        try {
+            $cmd->execute();
+            echo "Table _{$this->table}_ created with success. \n";
+        } catch (PDOException $e) {
+            echo "Table {$this->table} existent \n";
+        }
     }
 
 
@@ -49,7 +55,12 @@ class Conection
     public function deleteTable($table)
     {
         $cmd = $this->pdo->prepare("drop table {$table};");
-        $cmd->execute();
+        try {
+            $cmd->execute();
+            echo "drop table {$table} ok \n";
+        }catch(PDOException $e){
+            echo "Table {$table} not existent \n";
+        };
     }
 
     public function insert($array)
