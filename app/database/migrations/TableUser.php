@@ -4,15 +4,18 @@ namespace App\DataBase\Migrations;
 
 use App\DataBase\Migrations\Migration;
 
+use App\DataBase\Migrations\ModelPrint;
+
 class TableUser extends Migration
 {
     public function up()
     {
-       Migration::create('user',[
-           "id" => "int AUTO_INCREMENT PRIMARY KEY",
-           "name" => "varchar(150) not null",
-           "year" => "int(4) not null"
-       ]);
+        $prop = new ModelPrint();
+        Migration::create('user', [
+            $prop->int('id',null,true,true,true),
+            $prop->string('name',200),
+            $prop->int('year',4)
+        ]);
     }
 
     public function down()
