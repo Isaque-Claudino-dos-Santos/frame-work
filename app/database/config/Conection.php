@@ -63,7 +63,7 @@ class Conection
         };
     }
 
-    public function insert($array)
+    public function insert($table,$array)
     {
         $model_key = "";
         $model_value = "";
@@ -77,7 +77,7 @@ class Conection
             }
         }
 
-        $cmd = $this->pdo->prepare("insert into {$this->table} ({$model_value}) values({$model_key});");
+        $cmd = $this->pdo->prepare("insert into {$table} ({$model_value}) values({$model_key});");
 
         function addParam($cmd, $key, $value)
         {
