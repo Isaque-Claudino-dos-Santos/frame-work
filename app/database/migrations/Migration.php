@@ -9,10 +9,9 @@ class Migration extends Conection
 {
     protected $table;
 
-    protected function create($table,$ary)
+    protected function create($tableName,$ary)
     {
-        $this->table = $table;
-
+        $this->table = $tableName;
         Conection::createTable($ary);
     }
 
