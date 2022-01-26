@@ -23,7 +23,7 @@ function executeMigration($cmd)
     if (is_dir($defaulDir)) {
 
         $files = scandir($defaulDir);
-        $files = array_diff($files, ['.', '..', 'Migration.php']);
+        $files = array_diff($files, ['.', '..', 'Migration.php','ModelPrint.php']);
 
         foreach ($files as $file) {
             $class = istanciarClass($file, "App\DataBase\Migrations");
