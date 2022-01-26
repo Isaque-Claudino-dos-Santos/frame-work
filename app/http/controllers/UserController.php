@@ -17,5 +17,6 @@ class UserController extends Conection
     {
         Request::name(User::$lable);
         Conection::insert('user', Request::all());
+        redirectView('home.index');
     }
 }
