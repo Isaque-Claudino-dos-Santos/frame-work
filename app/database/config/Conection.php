@@ -21,25 +21,7 @@ class Conection
 
     public function createTable($props)
     {
-
-        $ary = [];
-        foreach ($props as $prop) {
-            foreach ($prop as $key => $value) {
-                $ary[$key] = $value;
-            }
-        }
-
-
-
-        $query = '';
-        foreach ($ary as $key => $value) {
-            if (end($ary) == $value) {
-                $query .= "{$key} {$value}";
-            } else {
-                $query .= "{$key} {$value}, ";
-            }
-        };
-
+        $query = implode(", ",$props);
         $cmd = $this->pdo->prepare("create table " . $this->table . " (" . $query . ")");
 
         try {
