@@ -82,7 +82,6 @@ class ModelPrint
 
     private function makeQueryColumn($name, $props)
     {
-        $obj[$name] = $props;
-        return $obj;
+        return $name . ' ' . $props;
     }
 }
