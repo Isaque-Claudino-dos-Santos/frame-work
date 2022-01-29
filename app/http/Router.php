@@ -7,12 +7,9 @@ class Router
 {
 
     private $routers = [];
-    private $surnames = [];
-    private $current_uri = [];
 
-    public function __get($surnames)
-    {
-        return $this->surnames;
+    public function getRouters() {
+        return $this->routers;
     }
 
     public function __construct()
@@ -21,71 +18,63 @@ class Router
         $this->app_method = $_SERVER['REQUEST_METHOD'];
     }
 
-    public function get($url, $controller)
+    public function get($uri, $controller)
     {
-        $this->routers[$url] = $controller;
-        $this->current_uri = $url;
-
-        $uri = $this->validateUrl($url);
-        if ($uri) {
-            $method = $this->validateMethod('GET');
-            if (!$method)
-                dd('ERROR METHOD');
-        }
+        $this->routers[$uri] = [
+            "uri" => $uri,
+            "controller" => $controller[0],
+            "action" => $controller[1],
+            "method" =>"GET",
+            "surname" => null,
+        ];
+    
         return $this;
     }
 
-    public function post($url, $controller)
+    public function post($uri, $controller)
     {
-        $this->routers[$url] = $controller;
-        $this->current_uri = $url;
-
-        $uri = $this->validateUrl($url);
-        if ($uri) {
-            $method = $this->validateMethod('POST');
-            if (!$method)
-                dd('ERROR METHOD');
-        }
+        $this->routers[$uri] = [
+            "uri" => $uri,
+            "controller" => $controller[0],
+            "action" => $controller[1],
+            "method" =>"POST"
+        ];
+    
         return $this;
     }
 
-    private function validateMethod($method)
+    private function validateMethod()
     {
-        switch ($method) {
-            case 'GET':
-                return true;
-                break;
-            case 'POST':
-                if ($this->app_method == 'POST')
-                    return true;
-                break;
-            default:
-                return false;
-                break;
-        }
+
+        $method = $this->routers[$this->app_uri]["method"];
+       return $method === $this->app_method;
     }
 
-    private function validateUrl($url)
+    private function getUri()
     {
-        if ($this->app_uri == $url) {
-            return true;
-        } else {
-            return false;
-        }
+        if (isset($this->routers[$this->app_uri])) return $this->routers[$this->app_uri];
     }
 
     public function execute()
     {
-        $controller = isset($this->routers[$this->app_uri]) ? $this->routers[$this->app_uri] : $this->routers['/'];
 
-        $func = $controller[0];
-        $action = $controller[1];
-        $param = isset($controller[2]) ? $controller[2] : null;
+        $isMethod = $this->validateMethod();
+        if($isMethod) {
+            $uri = $this->getUri();
+        }else {
+            dd("Method Not Valide");
+        }
+        
+        $func = $uri["controller"];
+        $action = $uri["action"];
+        $param = null;
         (new $func)->$action($param);
     }
 
     public function name($name)
     {
-        $this->surnames[$name] = $this->current_uri;
+        $key = array_key_last($this->routers);
+
+        $this->routers[$key]["surname"] = $name;
     }
 }
